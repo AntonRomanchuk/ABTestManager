@@ -80,3 +80,87 @@ The **HomeView** is where the UI is displayed. It uses the variants provided by 
 ### 4. **UI Display**:
 - The **HomeView** dynamically updates the UI elements (e.g., button color, image) based on the variants provided by the **HomeViewModel**.
 
+---
+
+## Code Examples
+
+### **ABTestingManager**
+
+The `ABTestingManager` is the central manager for handling all A/B test groups in the app. It fetches and provides access to different test groups, like `HomeABTests`.
+
+```swift
+final class ABTestingManager {
+    static let shared = ABTestingManager()
+    
+    private var homeTests: HomeABTests
+    
+    private init() {
+        let service = YourABTestingService() // Source of A/B test values
+        self.homeTests = HomeABTests(service: service)
+    }
+    
+    func homeTests() -> HomeABTests {
+        return homeTests
+    }
+}
+```
+
+`HomeABTests`
+The `HomeABTests` class defines the test variants for the home screen, like button color and image visibility.
+
+```swift
+final class HomeABTests {
+    private let service: ABTestingService
+    
+    init(service: ABTestingService) {
+        self.service = service
+    }
+    
+    var buttonColor: UIColor {
+        let colorHex: String = service.variant(for: "home_button_color", defaultValue: "#0000FF")
+        return UIColor(hex: colorHex) ?? .blue
+    }
+    
+    var image: Image {
+        service.variant(for: "image", defaultValue: false)
+    }
+}
+```
+
+`HomeViewModel`
+The `HomeViewModel` serves as the intermediary between the `HomeABTests` and the `HomeView`. It exposes the test variants for use in the view.
+
+```swift
+final class HomeViewModel: ObservableObject {
+    private var homeTests: HomeABTests
+    
+    private let buttonColor: UIColor
+    private let image: Image
+    
+    init(homeTests: HomeABTests) {
+        self.homeTests = homeTests
+        self.buttonColor = homeTests.buttonColor
+        self.image = homeTests.image
+    }
+}
+```
+
+`HomeView`
+The `HomeView` uses the variants provided by the `HomeStore` to dynamically adjust the UI.
+
+```swift
+struct HomeView: View {
+    @StateObject private var store: HomeStore
+    
+    init() {
+        _store = StateObject(wrappedValue: HomeViewModel(homeTests: ABTestingManager.shared.homeTests())) // It could be not shared, just an example
+    }
+    
+    var body: some View {
+        Button("Click Me") {
+            Image(store.image)
+        }
+        .foregroundColor(Color(store.buttonColor))
+    }
+}
+```
