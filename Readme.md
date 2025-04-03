@@ -1,5 +1,28 @@
 # A/B Testing Architecture for iOS App
 
+## Simplified Architecture Diagram
+
+Here’s a simplified diagram that shows the flow of data and interactions between components:
+
+```mermaid
+graph TD;
+    A[App] -->|Uses| B[ABTestingManager]
+    B -->|Manages| C[HomeABTests]
+    C -->|Provides| F[Button Color Variant]
+    C -->|Provides| G[Image Variant]
+    
+    P[HomeViewModel] -->|Injected with| C
+    R[HomeView] -->|Displays| P
+    
+    P -->|Uses| F
+    P -->|Uses| G
+    
+    R -->|Displays Button Color| F
+    R -->|Displays Image Variant| G
+```
+
+---
+
 ## Overview
 
 This document outlines the architecture for implementing scalable and maintainable A/B testing in an iOS app. The proposed architecture ensures flexibility, modularity, and easy extensibility as your app grows.
@@ -57,24 +80,3 @@ The **HomeView** is where the UI is displayed. It uses the variants provided by 
 ### 4. **UI Display**:
 - The **HomeView** dynamically updates the UI elements (e.g., button color, image) based on the variants provided by the **HomeViewModel**.
 
----
-
-## Simplified Architecture Diagram
-
-Here’s a simplified diagram that shows the flow of data and interactions between components:
-
-```mermaid
-graph TD;
-    A[App] -->|Uses| B[ABTestingManager]
-    B -->|Manages| C[HomeABTests]
-    C -->|Provides| F[Button Color Variant]
-    C -->|Provides| G[Image Variant]
-    
-    P[HomeViewModel] -->|Injected with| C
-    R[HomeView] -->|Displays| P
-    
-    P -->|Uses| F
-    P -->|Uses| G
-    
-    R -->|Displays Button Color| F
-    R -->|Displays Image Variant| G
