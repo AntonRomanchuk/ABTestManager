@@ -12,7 +12,7 @@ graph TD;
     C -->|Provides| G[Image Variant]
     
     P[HomeStore] -->|Injected with| C
-    R[HomeView] -->|Displays| P
+    R[HomeView] -->|Initialized with| P
     
     P -->|Uses| F
     P -->|Uses| G
