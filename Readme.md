@@ -127,11 +127,11 @@ final class HomeABTests {
 }
 ```
 
-`HomeViewModel`
-The `HomeViewModel` serves as the intermediary between the `HomeABTests` and the `HomeView`. It exposes the test variants for use in the view.
+`HomeStore`
+The `HomeStore` serves as the intermediary between the `HomeABTests` and the `HomeView`. It exposes the test variants for use in the view.
 
 ```swift
-final class HomeViewModel: ObservableObject {
+final class HomeStore: ObservableObject {
     private var homeTests: HomeABTests
     
     private let buttonColor: UIColor
@@ -153,7 +153,7 @@ struct HomeView: View {
     @StateObject private var store: HomeStore
     
     init() {
-        _store = StateObject(wrappedValue: HomeViewModel(homeTests: ABTestingManager.shared.homeTests())) // It could be not shared, just an example
+        _store = StateObject(wrappedValue: HomeStore(homeTests: ABTestingManager.shared.homeTests())) // It could be not shared, just an example
     }
     
     var body: some View {
