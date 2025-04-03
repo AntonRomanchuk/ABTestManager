@@ -11,7 +11,7 @@ graph TD;
     C -->|Provides| F[Button Color Variant]
     C -->|Provides| G[Image Variant]
     
-    P[HomeViewModel] -->|Injected with| C
+    P[HomeStore] -->|Injected with| C
     R[HomeView] -->|Displays| P
     
     P -->|Uses| F
