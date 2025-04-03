@@ -50,18 +50,18 @@ Each screen or feature of the app has a corresponding test group, such as `HomeA
 - Defines A/B test variants (e.g., button color, image).
 - Provides these variants to the ViewModel.
 
-### 3. **HomeViewModel** - ViewModel for Home View
-The **HomeViewModel** serves as an intermediary between the **HomeABTests** and the **HomeView**. It is responsible for injecting the appropriate test data (variants) into the view for rendering.
+### 3. **HomeStore** - ViewModel for Home View
+The **HomeStore** serves as an intermediary between the **HomeABTests** and the **HomeView**. It is responsible for injecting the appropriate test data (variants) into the view for rendering.
 
 #### Key Responsibilities:
 - Receives the A/B test group (`HomeABTests`).
 - Exposes the test variants to the View (e.g., **Button Color**, **Image**).
 
 ### 4. **HomeView** - The View
-The **HomeView** is where the UI is displayed. It uses the variants provided by the **HomeViewModel** to adjust the UI dynamically (e.g., button color, image variant).
+The **HomeView** is where the UI is displayed. It uses the variants provided by the **HomeStore** to adjust the UI dynamically (e.g., button color, image variant).
 
 #### Key Responsibilities:
-- Displays UI elements based on the variants provided by the **HomeViewModel**.
+- Displays UI elements based on the variants provided by the **HomeStore**.
 
 ---
 
@@ -72,13 +72,13 @@ The **HomeView** is where the UI is displayed. It uses the variants provided by 
 - **ABTestingManager** contains and provides access to test groups like **HomeABTests**.
 
 ### 2. **Test Group and ViewModel**:
-- The **HomeABTests** test group provides test variants (e.g., button color and image) to the **HomeViewModel**.
+- The **HomeABTests** test group provides test variants (e.g., button color and image) to the **HomeStore**.
 
 ### 3. **ViewModel to View**:
-- The **HomeViewModel** exposes the variants to the **HomeView**, which adjusts the UI based on the provided data.
+- The **HomeStore** exposes the variants to the **HomeView**, which adjusts the UI based on the provided data.
 
 ### 4. **UI Display**:
-- The **HomeView** dynamically updates the UI elements (e.g., button color, image) based on the variants provided by the **HomeViewModel**.
+- The **HomeView** dynamically updates the UI elements (e.g., button color, image) based on the variants provided by the **HomeStore**.
 
 ---
 
