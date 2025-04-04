@@ -1,5 +1,13 @@
 # A/B Testing Architecture for iOS App
 
+## Final approach
+
+ABTestingManager will be located in own package(ABTesting)
+Screen specific A/B test classes will be located in screen/feature folders. The name comes from the folder(example: HomeView -> HomeABTests)
+If there is only 1 A/B test variable -> we will not create separate class for it, we will just inject it.
+
+---
+
 ## Simplified Architecture Diagram
 
 Here’s a simplified diagram that shows the flow of data and interactions between components:
